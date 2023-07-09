@@ -2,10 +2,11 @@
 """A module for Fabric script that generates a .tgz archive."""
 import os
 from datetime import datetime
-from fabric import task
+from fabric.api import local, runs_once
 
-@task
-def do_pack(c):
+
+@runs_once
+def do_pack():
     """Archives the static files."""
     if not os.path.isdir("versions"):
         os.mkdir("versions")
@@ -20,7 +21,7 @@ def do_pack(c):
     )
     try:
         print("Packing web_static to {}".format(output))
-        c.run("tar -cvzf {} web_static".format(output))
+        local("tar -cvzf {} web_static".format(output))
         size = os.stat(output).st_size
         print("web_static packed: {} -> {} Bytes".format(output, size))
     except Exception:
