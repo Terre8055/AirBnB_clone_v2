@@ -23,7 +23,6 @@ def do_pack(c):
         c.run("tar -cvzf {} web_static".format(output))
         size = os.stat(output).st_size
         print("web_static packed: {} -> {} Bytes".format(output, size))
-        print("Done")
     except Exception:
         output = None
     return output
